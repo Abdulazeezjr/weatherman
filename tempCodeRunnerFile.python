@@ -1,0 +1,18 @@
+import requests
+def get_client_ip(request):
+    x_forwarded_for = request.headers.get('X-Forwarded-For')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+def get_location(request):
+    api_key = 'c052961846134a719b5386f834e47cd4'
+    client_ip = get_client_ip(request)
+    api_endpoint = f'https://ipgeolocation.abstractapi.com/v1/?api_key={api_key}&ip_address={client_ip}'
+    response = requests.get(api_endpoint)
+    location_data = response.json()
+    return (location_data['city'].split(" ")[0])
+me = get_location()
+print(me)

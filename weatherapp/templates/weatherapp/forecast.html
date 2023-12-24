@@ -1,0 +1,104 @@
+{% extends 'weatherapp/home.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <form method="post" action="{% url 'forecast' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="location">Enter Location:</label>
+        <input class="form-control" required name="city_name" id="location" type="text" placeholder="Enter city or ZIP code" value="">
+      </div>
+      <div class="form-group">
+        <label for="No_days">Enter No Days:</label>
+        <input class="form-control" name="no_days" id="no_days" type="number" placeholder="Enter number of days">
+      </div>
+      <button class="btn btn-outline-success" style="background-color: black;" type="submit">Get Forecast</button>
+    </form>
+
+    {% if data %}
+      <h2 class="mt-4">Weather Forecast for {{ data.location }}</h2>
+<section class="mt-4">
+    <h3>Current Conditions</h3>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <p class="mb-2">Temperature: {{ data.current_conditions.temperature }}°C</p>
+            <p class="mb-2">Feels Like: {{ data.current_conditions.feels_like }}°C</p>
+          </div>
+          <div class="col-md-3">
+            <p class="mb-2">Condition: {{ data.current_conditions.condition }}</p>
+            <p class="mb-2">Wind: {{ data.current_conditions.wind_speed }} kph, {{ data.current_conditions.wind_direction }}</p>
+          </div>
+          <div class="col-md-3">
+            <p class="mb-2">Humidity: {{ data.current_conditions.humidity }}%</p>
+            <p class="mb-2">Pressure: {{ data.current_conditions.pressure }} mb</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+      </section>
+
+      <!-- Hourly Forecast -->
+      <section class="mt-4">
+            <h3>Hourly Forecast</h3>
+            <div class="row">
+              {% for hour in data.hourly_forecast %}
+              <div class="col-3">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ hour.time|slice:"11:" }}</h5>
+                    <p class="card-text">Temperature: {{ hour.temp_c }}°C</p>
+                    <p class="card-text">{{ hour.condition.text }}</p>
+                  </div>
+                </div>
+            </div>
+              {% endfor %}
+            </div>
+          </section>
+
+      <!-- Daily Forecast -->
+      <section class="mt-4">
+        <h3>Daily Forecast</h3>
+        <div class="row">
+          {% for day in data.daily_forecast %}
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h5 class="card-title">{{ day.date }}</h5>
+                  <p class="card-text">High: {{ day.day.maxtemp_c }}°C</p>
+                  <p class="card-text">Low: {{ day.day.mintemp_c }}°C</p>
+                  <p class="card-text">{{ day.day.condition.text }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- Extended Forecast -->
+      <section class="mt-4">
+        {% if data.extended_forecast %}
+        <h3>Extended Forecast</h3>
+        <div class="row">
+          {% for day in data.extended_forecast %}
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h5 class="card-title">{{ day.date }}</h5>
+                  <p class="card-text">High: {{ day.day.maxtemp_c }}°C</p>
+                  <p class="card-text">Low: {{ day.day.mintemp_c }}°C</p>
+                  <p class="card-text">{{ day.day.condition.text }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </section>
+    {% endif %}
+  </div>
+{% endblock %}
+

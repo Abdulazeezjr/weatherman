@@ -1,0 +1,21 @@
+<!-- get_location.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Current Location</title>
+</head>
+<body>
+
+<h2>User Location</h2>
+
+<ul>
+  <li><strong>IP:</strong> {{ location_data.ip_address }}</li>
+  <li><strong>Location:</strong> {{ location_data.city }}, {{ location_data.region }}, {{ location_data.country }}</li>
+  <li><strong>Latitude:</strong> {{ location_data.latitude | default:"Not available" }}</li>
+  <li><strong>Longitude:</strong> {{ location_data.longitude | default:"Not available" }}</li>
+</ul>
+
+</body>
+</html>

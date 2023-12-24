@@ -1,0 +1,87 @@
+
+/* Add some margin and padding to the form */
+form {
+    margin-bottom: 20px;
+  }
+  
+  /* Style the button */
+  button {
+    color: lightgreen;
+    background-color: black;
+    padding-bottom: 0px;
+    border-bottom-color: white;
+  }
+  
+  /* Style the forecast sections */
+  section {
+    margin-top: 20px;
+  }
+  
+  /* Style the hourly forecast list */
+  ul.list-unstyled {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Style the daily forecast cards */
+  .card {
+    border: 2px solid transparent;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.692);
+  }
+  
+  .card-body {
+    padding: 20px;
+ 
+  }
+  
+  /* Apply some spacing between cards */
+  .row .col-md-4 {
+    margin-bottom: 20px;
+   
+  }
+  
+  /* Apply some margin to the extended forecast section */
+  section:last-child {
+    margin-bottom: 20px;
+  }
+  /* Add this CSS style for the Hourly Forecast section */
+.hourly-forecast {
+  margin-top: 2rem;
+}
+
+.hourly-forecast h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.hourly-forecast ul {
+  list-style: none;
+  padding: 0;
+}
+
+.hourly-forecast li {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: #f8f9fa; /* Light gray background color */
+  border-radius: 5px;
+}
+
+.hourly-forecast li span {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+/* Example: Set different background colors for odd and even items */
+.hourly-forecast li:nth-child(even) {
+  background-color: #e2e6ea; /* Light blue background color for even items */
+}
+
+/* styles.css */
+body {
+  background-image: url('https://img.freepik.com/free-photo/sky-sunset_1203-1666.jpg?w=826&t=st=1703418508~exp=1703419108~hmac=71629679327ab96212fa6a8cbd84e5c7f38a2b5e8ba86ff16b2b90c8d51a9ab4');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

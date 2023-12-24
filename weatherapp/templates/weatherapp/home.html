@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>weather landing</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'weatherapp/styles.css' %}">
+
+</head>
+<body >
+    <style>
+        .textcl{
+            color: rgb(20, 19, 19);
+        }
+    </style>
+    
+    <nav class="navbar navbar-expand-lg " style="background-color: transparent; border-bottom: 3px solid black;">
+        <div class="container-fluid ">
+            <a class="navbar-brand textcl" href="{% url 'home' %}" aria-current="page">
+                <img src="https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather03-1024.png" width="40px" height="35px"  alt="Weather Icon">
+              </a>
+              
+            <button class="navbar-toggler" type="button"  data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="background-color: rgb(21, 99, 215);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav" >
+                    
+                    <a class="nav-link active textcl" aria-current="page" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link textcl" href="{% url 'forecast' %}">Forecast</a>
+    
+                    <a class="nav-link textcl" href="{% url 'aboutus' %}">About Us</a>
+                
+                    {% if user.is_authenticated %}
+                    <a class="nav-link textcl" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                    <a class="nav-link textcl" href="{% url 'login' %}">Sign in</a>
+                    {% endif %}
+                </div>
+                <form class="d-flex ml-auto" role="search" method="post" action="{% url 'weather' %}">
+                    {% csrf_token %}
+                    <input class="form-control me-2" type="search" name="city_name"  placeholder="search" aria-label="search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div> 
+        </div>
+    </nav>
+  
+        <div>
+            <header class="dropdown-header py-5" style="background-color: transparent; color: black; font-size: 25px; text-align: center;">
+                <h1>Weather App</h1>
+                <p style="font-size: 15px;">Your source for up-to-date weather information</p>
+            </header>
+            
+        </div>
+    
+   
+        {% block content %}
+       
+        <section class="container my-5">
+            <div >
+                <h2  style="font-weight: bold;"> Check the Weather</h2>
+                <form  method="post" action="{% url 'weather' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="location">Enter Location:</label>
+                        <input class="form-control"  id="location" name="city_name"  type="text"  placeholder=" Enter city or ZIP code">
+                    </div>
+                    <button class="btn " style="color: lightgreen; background-color: black;" type="submit">Get Weather</button>
+                </form>
+            </div>
+        </section>
+
+        {% endblock %}
+    </body>
+    
+    <footer class="card-footer  text-success py-3"  style="background-color: transparent; border-top: 3px solid black; text-align: center; color: black;">
+       &copy; 2023 weather app
+    </footer> 
+</body>
+</html>
